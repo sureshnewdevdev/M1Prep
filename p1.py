@@ -1,38 +1,34 @@
 def sim(inp):
-	linp = list(inp)
+    """Calculate the similarity sum for the given string."""
+    total_sum = 0
+    length = len(inp)
 
-	li = []
-	for i in range(0,len(linp)):
-		s = ""
-		for j in range(i,len(linp)):
-			s = s + linp[j]
-		li.append(s)
+    for i in range(length):
+        common_length = 0
+        for j in range(i, length):
+            if inp[j - i] == inp[j]:
+                common_length += 1
+            else:
+                break
+        total_sum += common_length
 
-	lis = li
-	print lis
-	suming = 0
-	for i in lis:
-		llis = list(i)
-		leng = 0
-		for j in range(0,(len(llis))):
-			if linp[j] == llis[j]:
-				leng = leng + 1
-			elif linp[j] != llis[j]:
-				break
-		suming = suming + leng
-
-	print suming
+    print(total_sum)
 
 def main():
-    testcases = input()
-    
-    if testcases >=1 and testcases <=10:
-        for i in range(testcases):
-            string = raw_input()
-            if len(string) <= 10000 and string.islower() and string.isalpha():
-                sim(string)
-            else:
-                print "string length exceeded or Uppercase or numbers entered"
-    else:
-        print "test cases exceeded"
-main()
+    """Main function to handle multiple test cases."""
+    try:
+        testcases = int(input("Enter number of test cases: ").strip())
+        if 1 <= testcases <= 10:
+            for _ in range(testcases):
+                string = input("Enter a lowercase string: ").strip()
+                if len(string) <= 10000 and string.islower():
+                    sim(string)
+                else:
+                    print("Error: Invalid input (string length exceeded or contains uppercase/numbers).")
+        else:
+            print("Error: Number of test cases exceeded the allowed limit.")
+    except ValueError:
+        print("Error: Invalid input, please enter an integer.")
+
+if __name__ == "__main__":
+    main()
